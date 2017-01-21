@@ -12,7 +12,6 @@ double std(double var);
 int main(void)
 {
 	double data[N] = {
-
 	};
 	double a = 0.0; // 平均
 	double v = 0.0;   // 分散

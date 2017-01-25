@@ -7,7 +7,7 @@
 <servlet>
  <servlet-name>hello</servlet-name>
  <servlet-class>tomcatTest.HelloWorld</servlet-class>
- </servlet>
+</servlet>
  
  <servlet-mapping>
   <servlet-name>

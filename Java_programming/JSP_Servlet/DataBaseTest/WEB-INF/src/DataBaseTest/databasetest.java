@@ -22,34 +22,40 @@ public class databasetest extends HttpServlet {
     String user = "mmk";
     String password = "grqt58yj";
 
-    out.println("<p>");
-    try {
-        Class.forName("com.mysql.jdbc.Driver").newInstance();
-        out.println("ドライバのロードに成功しました<br>");
 
-        conn = DriverManager.getConnection(url, user, password);
-        out.println("データベース接続に成功しました<br>");
-      }catch (ClassNotFoundException e){
-        out.println("ClassNotFoundException:" + e.getMessage());
-      }catch (SQLException e){
-        out.println("SQLException:" + e.getMessage());
-      }catch (Exception e){
-        out.println("Exception:" + e.getMessage());
-      }finally{
-        try{
-          if (conn != null){
-            conn.close();
-            out.println("データベース切断に成功しました");
-          }else{
-            out.println("コネクションがありません");
-          }
-        }catch (SQLException e){
-          out.println("SQLException:" + e.getMessage());
-        }
+    try {
+      Class.forName("com.mysql.jdbc.Driver").newInstance();
+      conn = DriverManager.getConnection(url, user, password);
+
+      Statement stmt = conn.createStatement();
+      String sql = "SELECT * FROM Test";
+      ResultSet rs = stmt.executeQuery(sql);
+
+      while(rs.next()){
+        int code = rs.getInt("id");
+        String company = rs.getString("name");
+        out.println("<p>");
+        out.println("ID:" + code + ", 名前:" + company);
+        out.println("</p>");
       }
 
-    out.println("</p>");
-    out.println("<p>");
+      rs.close();
+      stmt.close();
+    }catch (ClassNotFoundException e){
+      out.println("ClassNotFoundException:" + e.getMessage());
+    }catch (SQLException e){
+      out.println("SQLException:" + e.getMessage());
+    }catch (Exception e){
+      out.println("Exception:" + e.getMessage());
+    }finally{
+      try{
+        if (conn != null){
+          conn.close();
+        }
+      }catch (SQLException e){
+        out.println("SQLException:" + e.getMessage());
+      }
+    }
 
     out.println("</body>");
     out.println("</html>");

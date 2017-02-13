@@ -2,9 +2,17 @@
   <h1>出席管理システム</h1>
 </div>
 <div class="system">
-  <% if logged_in? %>
-  	<p>出席ボタン有りのメンバーの出席状況を表示する予定</p>
-  <% else %>
-  	<p>出席ボタン無しのメンバーの出席状況を表示する予定</p>
-  <% end %>
+	<ul class="users">
+		<table class="hometable">
+			<% @users.each do |user| %>
+			<% if user.name != "SFlab" %>
+		  	<tr>
+		  	  <td><%= user.name %></td>
+		  	  <td>ラボ</td>
+		  	  <td>帰宅</td>
+		  	</tr>
+		  <% end %>
+		  <% end %>
+		</table>
+	</ul>
 </div>

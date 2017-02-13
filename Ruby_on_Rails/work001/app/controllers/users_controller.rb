@@ -17,6 +17,11 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+
+    #画像ファイル取得
+    file = params[:user][:image]
+    @user.set_image(file)
+
     if @user.save
       log_in @user
       flash[:success] = "藤田研究室へようこそ!"
@@ -32,6 +37,9 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
+    #画像ファイル取得
+    file = params[:user][:image]
+    @user.set_image(file)
     if @user.update_attributes(user_params)
       flash[:success] = "更新しました"
       redirect_to @user

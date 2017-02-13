@@ -37,4 +37,15 @@ class User < ActiveRecord::Base
   def forget
     update_attribute(:remember_digest, nil)
   end
+
+  # userオブジェクトから呼び出せるインスタンスメソッドとして定義
+  def set_image(file)
+    if !file.nil?
+      file_name = file.original_filename
+      File.open("public/#{file_name}", 'wb') { |f|
+        f.write(file.read)
+      }
+      self.image = file_name
+    end
+  end
 end

@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = User.find(params[:id]) 
   end
 
   def new
@@ -17,10 +17,6 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-
-    #画像ファイル取得
-    file = params[:user][:image]
-    @user.set_image(file)
 
     if @user.save
       log_in @user
@@ -37,6 +33,14 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
+
+    status = params[:user][:state]
+    if status == "帰宅"
+      @user.state = "帰宅"
+    else
+      @user.state = status
+    end
+
     #画像ファイル取得
     file = params[:user][:image]
     @user.set_image(file)

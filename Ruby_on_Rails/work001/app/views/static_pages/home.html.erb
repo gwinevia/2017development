@@ -7,9 +7,15 @@
 			<% @users.each do |user| %>
 			<% if user.name != "SFlab" %>
 		  	<tr>
-		  	  <td><%= user.name %></td>
-		  	  <td>ラボ</td>
-		  	  <td>帰宅</td>
+		  		<% if user.state == "ここはラボ"%>
+		  	  	<td><%= user.name %></td>
+		  	  	<td id="hilight">ラボ</td>
+		  	  	<td>帰宅</td>
+		  	  <% else %>
+		  	  	<td><%= user.name %></td>
+		  	  	<td>ラボ</td>
+		  	  	<td id="hilight">帰宅</td>		  	  	
+		  	  <% end %>
 		  	</tr>
 		  <% end %>
 		  <% end %>

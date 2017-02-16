@@ -34,16 +34,18 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
 
-    status = params[:user][:state]
-    if status == "帰宅"
-      @user.state = "帰宅"
-    else
-      @user.state = status
+    if status = params[:user][:state]
+      if status == "帰宅"
+        @user.state = "帰宅"
+      else
+        @user.state = status
+      end
     end
 
     #画像ファイル取得
     file = params[:user][:image]
     @user.set_image(file)
+    
     if @user.update_attributes(user_params)
       flash[:success] = "更新しました"
       redirect_to @user

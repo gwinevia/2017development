@@ -16,3 +16,15 @@ User.create!(name:  "Momoko Karasawa",
              password:              "grqt58yj",
              password_confirmation: "grqt58yj",
              admin: false)
+
+User.create!(name:  "Sample User",
+             email: "sample@gmail.com",
+             password:              "password",
+             password_confirmation: "password",
+             admin: false)
+
+User.create!(name:  "Sample User",
+             email: "sample2@gmail.com",
+             password:              "password2",
+             password_confirmation: "password2",
+             admin: false)

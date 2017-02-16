@@ -11,16 +11,18 @@
         <%= @user.name %>
       </h1>
     </section>
-    <% if @user.state == "ここはラボ" %>
-      <%= form_for(@user) do |f| %>
-        <%= f.hidden_field  :state, value: "帰宅", class: 'form-control'%>
-        <%= f.submit "お家に帰る〜", class: "btn btn-primary" %>
+    <% if current_user?(@user) %>
+      <% if @user.state == "ここはラボ" %>
+        <%= form_for(@user) do |f| %>
+          <%= f.hidden_field  :state, value: "帰宅", class: 'form-control'%>
+          <%= f.submit "お家に帰る〜", class: "btn btn-primary" %>
+        <% end %>
+      <% else %>
+        <%= form_for(@user) do |f| %>
+          <%= f.hidden_field :state, value: "ここはラボ", class: 'form-control'%>
+          <%= f.submit " ここはラボ", class: "btn btn-primary" %>
+        <% end %>    
       <% end %>
-    <% else %>
-      <%= form_for(@user) do |f| %>
-        <%= f.hidden_field :state, value: "ここはラボ", class: 'form-control'%>
-        <%= f.submit " ここはラボ", class: "btn btn-primary" %>
-      <% end %>    
     <% end %>
   </aside>
 </div>

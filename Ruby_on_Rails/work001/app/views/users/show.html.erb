@@ -20,9 +20,23 @@
       <% else %>
         <%= form_for(@user) do |f| %>
           <%= f.hidden_field :state, value: "ここはラボ", class: 'form-control'%>
-          <%= f.submit " ここはラボ", class: "btn btn-primary" %>
+          <%= f.submit "ここはラボ", class: "btn btn-primary" %>
         <% end %>    
+      <% end %>
+
+      <% if logged_in? %>
+        <div class="row">
+          <aside class="col-md-12">
+            <section class="micropost_form">
+              <%= render 'shared/micropost_form' %>
+            </section>
+          </aside>
+        </div>
       <% end %>
     <% end %>
   </aside>
+    <div class="col-md-8">
+      <h3>作業ログ</h3>
+      <%= render 'shared/feed' %>
+    </div>
 </div>

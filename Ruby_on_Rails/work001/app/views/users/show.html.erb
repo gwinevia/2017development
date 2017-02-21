@@ -37,6 +37,8 @@
   </aside>
     <div class="col-md-8">
       <h3>作業ログ</h3>
-      <%= render 'shared/feed' %>
+      <% if current_user?(@user) %>
+        <%= render 'shared/feed' %>
+      <% end %>
     </div>
 </div>

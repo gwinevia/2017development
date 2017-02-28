@@ -10,17 +10,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.sql.*;
+
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	private static final String USER_EMAIL = "test@gmail.com";
-	private static final String USER_PASSWORD = "login";
+	
+	Connection conn = null;
+	String url = "jdbc:mysql://localhost/2017development";
+	String user = "mmk";
+	String password = "grqt58yj";
 
 	public LoginServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -60,26 +63,41 @@ public class LoginServlet extends HttpServlet {
 
 		// セッションを取得.
 		HttpSession session = request.getSession( true );
-
+		
 		// ログイン認証.
-		if ( USER_EMAIL.equals( userEmail ) && USER_PASSWORD.equals( userPassword ) ) {
-			
-			session.setMaxInactiveInterval(60);
-			
-			// ログイン情報.
-			Map<String, String> map = new HashMap<String, String>();
-			map.put( "Email", userEmail );
-			map.put( "Password", userPassword );
+		try{
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			conn = DriverManager.getConnection(url, user, password);
+			Statement stmt = conn.createStatement();
+			String sql = "SELECT * FROM Test";
+			ResultSet rs = stmt.executeQuery(sql);
+	    
+			while(rs.next()){
+				// ログイン認証.
+				if(rs.getString("email").equals( userEmail ) && rs.getString("password").equals( userPassword ) ) {
+					
+					session.setMaxInactiveInterval(60);
+					
+					// ログイン情報.
+					Map<String, String> map = new HashMap<String, String>();
+					map.put( "Email", userEmail );
+					map.put( "Password", userPassword );
+					map.put( "id", rs.getString("id"));
 
-			// ログイン情報をセッションに保存.
-			session.setAttribute( "login_user", map );
+					// ログイン情報をセッションに保存.
+					session.setAttribute( "login_user", map );
 
-			// トップページへ遷移(リダイレクト).
-			response.sendRedirect( "./" );
-		} else {
-		// ログインフォームへ遷移(リダイレクト).
-			response.sendRedirect( "./login" );
-		}
+					// トップページへ遷移(リダイレクト).
+					response.sendRedirect( "./" );
+				} else {
+				// ログインフォームへ遷移(リダイレクト).
+					response.sendRedirect( "./login" );
+				}
+			}
+			
+			conn.close();
+			
+		}catch(Exception e){}
 	}
 }
 

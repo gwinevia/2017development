@@ -251,3 +251,25 @@ input[type="password"] {
 .submit input:hover{
   background: #37a4bf;
 }
+
+.hometable{
+    line-height: 1.5;
+	border-collapse: collapse;
+	text-align:center;
+	margin-top:30px;
+	margin-bottom:50px;
+ 	margin-left: auto;
+ 	margin-right: auto;
+	width:750px;
+	border: solid 2px #4682B4;
+	background-color: #DCDCDC;
+}
+
+.hometable td#flag {
+	background-color: #F4A460;
+	border: solid 2px #4682B4;
+}
+
+.hometable td {
+	border: solid 2px #4682B4;
+}

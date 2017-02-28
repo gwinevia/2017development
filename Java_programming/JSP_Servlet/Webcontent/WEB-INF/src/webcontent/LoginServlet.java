@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private static final String USER_EMAIL = "test@materialize.jp";
+	private static final String USER_EMAIL = "test@gmail.com";
 	private static final String USER_PASSWORD = "login";
 
 	public LoginServlet() {

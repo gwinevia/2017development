@@ -8,37 +8,46 @@
 	String hiddenLogin = "";
 	String hiddenLogout = "";
 	if ( null == map ) {
-	// ログアウト中.
-	hiddenLogout = "hidden";
+		// ログアウト中.
+		hiddenLogout = "hidden";
 	} else {
-	// ログイン中.
-	userEmail = (String)map.get( "Email" );
-	userPassword = (String)map.get( "Password" );
-	hiddenLogin = "hidden";
+		// ログイン中.
+		userEmail = (String)map.get( "Email" );
+		userPassword = (String)map.get( "Password" );
+		hiddenLogin = "hidden";
 	}
 %>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>TestLogin</title>
+		<title>藤田研究室</title>
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/main.css">
 	</head>
 	<body>
 
 	<header>
-		<h1>TestLogin</h1>
-		<p>トップページ</p>
+		<h1><a href="./" id="logo">藤田研究室</a></h1>
 	</header>
 
 	<main>
-		<div <%= hiddenLogin %>>
-			<p><a href="./login">ログイン</a></p>
-		</div>
-		<div <%= hiddenLogout %>>
-			<p>E-MAIL : <%= userEmail %></p>
-			<p>PASSWORD : <%= userPassword %></p>
-			<p><a href="./logout">ログアウト</a></p>
-		</div>
+	    <nav class="navi">
+        	<ul id="dropmenu">
+        		<li <%= hiddenLogin %>><a href="#">新規登録</a></li>
+        		<li <%= hiddenLogout %>><a href="#">マイページ</a></li>
+          		<li <%= hiddenLogin %>><a href="./login">ログイン</a></li>
+          		<li <%= hiddenLogout %>><a href="./logout">ログアウト</a></li>
+         	</ul>
+       </nav>
 	</main>
+	
+	<footer>
+  		<nav>
+    		<ul>
+      			<li class="footernavi"><a href="http://alpha.sf.cs.it-chiba.ac.jp/mediawiki/">SFwiki</a></li>
+      			<li class="footernavi"><a href="http://alpha.sf.cs.it-chiba.ac.jp/gitbucket/">GitBucket</a></li>  
+    		</ul>
+  		</nav>
+	</footer>
 	</body>
 </html>

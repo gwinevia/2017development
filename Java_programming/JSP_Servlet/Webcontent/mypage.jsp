@@ -27,7 +27,7 @@
 		<nav class="navi">
         	<ul id="dropmenu">
         		<li><a href="./logout">ログアウト</a></li>
-        		<li><a href="#">設定</a></li>
+        		<li><a href="./update">設定</a></li>
          	</ul>
        	</nav>
 		<div>
@@ -55,16 +55,16 @@
 %>
 				<form method="post" action="./mypage">
 				    <input type="hidden" name="state" value="out">
-        			<p class="mypage-b"><input type="button" name="state" value="ここはラボ" disabled id="mypage-submit">
-        			<input type="submit" value="お家に帰る～" id="mypage-submit"/></p>
+        			<p class="mypage-b"><input type="button" name="state" value="在室" disabled id="mypage-submit">
+        			<input type="submit" value="退室" id="mypage-submit"/></p>
     		 	</form>
 <%
 	}else {
 %>
 				<form method="post" action="./mypage">
 					<input type="hidden" name="state" value="in">
-    				<p class="mypage-b"><input type="submit" value="ここはラボ" id="mypage-submit"/>
-    				<input type="button" name="state" value="お家に帰る～" disabled id="mypage-submit"></p>
+    				<p class="mypage-b"><input type="submit" value="在室" id="mypage-submit"/>
+    				<input type="button" name="state" value="退室" disabled id="mypage-submit"></p>
 		 		</form>
 <%	
 	}

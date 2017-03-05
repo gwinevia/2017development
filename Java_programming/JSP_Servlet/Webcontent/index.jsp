@@ -37,10 +37,15 @@
 	<main>
 	    <nav class="navi">
         	<ul id="dropmenu">
-        		<li <%= hiddenLogin %>><a href="#">新規登録</a></li>
-        		<li <%= hiddenLogout %>><a href="./mypage">マイページ</a></li>
+        		<li <%= hiddenLogin %>><a href="./new">新規登録</a></li>
+        		<li <%= hiddenLogout %>><a href="#">Menu</a>
+        		<ul>
+        			<li <%= hiddenLogout %>><a href="./mypage">マイページ</a></li>
+        			<li <%= hiddenLogout %>><a href="./update">設定</a></li>
+        			<li <%= hiddenLogout %>><a href="./logout">ログアウト</a></li>
+        		</ul>
+        		</li>
           		<li <%= hiddenLogin %>><a href="./login">ログイン</a></li>
-          		<li <%= hiddenLogout %>><a href="./logout">ログアウト</a></li>
          	</ul>
        </nav>
        <table class="hometable">

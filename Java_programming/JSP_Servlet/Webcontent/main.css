@@ -71,13 +71,13 @@ header {
 }
 #dropmenu li ul li a {
   padding: 13px 15px;
-  background: #7c8c0e;
+  background: #4682B4;
   text-align: left;
   font-size: 12px;
   font-weight: normal;
 }
 #dropmenu > li:hover > a {  background: #5F9EA0 }
-#dropmenu > li:hover li:hover > a {  background: #6e7c0c }
+#dropmenu > li:hover li:hover > a {  background: #00BFFF }
 #dropmenu > li:hover > ul > li {
   overflow: visible;
   height: 38px;
@@ -277,6 +277,7 @@ input[type="password"] {
 /* mypage */
 .mypage-b {
 	text-align:center;
+	margin: auto;
 }
 
 #mypage-submit{

@@ -273,3 +273,56 @@ input[type="password"] {
 .hometable td {
 	border: solid 2px #4682B4;
 }
+
+/* mypage */
+.mypage-b {
+	text-align:center;
+}
+
+#mypage-submit{
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 16px;
+  padding-top: 10px;
+  padding-right: 30px;
+  padding-bottom: 10px;
+  padding-left: 30px;
+  margin-top: 10px;
+  margin-left: 15px;
+  text-decoration: none;
+  background-color: #4682B4;
+  border-radius:8px;
+  -moz-border-radius:8px;
+  -webkit-border-radius:8px;
+}
+
+#mypage-submit:hover{
+  background: #37a4bf;
+}
+
+#mypage-submit:disabled{
+  background: #D3D3D3;
+}
+
+/* sidebar */
+aside {
+  float: left;
+  width: 40%;
+  margin-top: 20px;
+  section.user_info {
+    margin-top: 20px;
+  }
+  section {
+    padding: 10px 0;
+    margin-top: 20px;
+    &:first-child {
+      border: 0;
+      padding-top: 0;
+    }
+    span {
+      display: block;
+      margin-bottom: 3px;
+      line-height: 1;
+    }
+  }
+}

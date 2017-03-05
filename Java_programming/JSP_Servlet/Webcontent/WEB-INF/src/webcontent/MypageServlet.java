@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.*;
 
+@WebServlet("/mypage")
+public class MypageServlet extends HttpServlet{
 
-@WebServlet("/login")
-public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	Connection conn = null;
@@ -22,10 +22,10 @@ public class LoginServlet extends HttpServlet {
 	String user = "mmk";
 	String password = "grqt58yj";
 
-	public LoginServlet() {
+	public MypageServlet() {
 		super();
 	}
-
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// セッションを取得.
 		HttpSession session = request.getSession( true );
@@ -33,72 +33,51 @@ public class LoginServlet extends HttpServlet {
 		// ログイン情報を取得.
 		Map<String, String> map = (Map<String, String>)session.getAttribute( "login_user" );
 
-		// 既にログイン中.
-		if ( null != map ) {
+		if ( null == map ) {
 			// トップページへ遷移(リダイレクト).
-			response.sendRedirect( "./" );
+			response.sendRedirect( "./login" );
 			return;
 		}
 
 		// ログインフォームへ遷移(フォワード).
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher( "/login.jsp" );
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher( "/mypage.jsp" );
 		dispatcher.forward( request, response );
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// エンコード設定.
 		request.setCharacterEncoding( "UTF-8" );
-
-		// E-MAIL を取得.
-		String userEmail = request.getParameter( "email" );
-		if ( null == userEmail ) {
-			userEmail = "";
-		}
-
-		// PASSWORD を取得.
-		String userPassword = request.getParameter( "password" );
-		if ( null == userPassword ) {
-			userPassword = "";
-		}
-
-		// セッションを取得.
-		HttpSession session = request.getSession( true );
 		
-		// ログイン認証.
+		HttpSession session = request.getSession( true );
+		Map<String, String> map2 = (Map<String, String>)session.getAttribute( "login_user" );
+		String userID = (String)map2.get("id");
+		
+		String userState = request.getParameter("state");
+		
 		try{
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			conn = DriverManager.getConnection(url, user, password);
 			Statement stmt = conn.createStatement();
-			String sql = "SELECT * FROM Test";
-			ResultSet rs = stmt.executeQuery(sql);
-	    
-			while(rs.next()){
-				// ログイン認証.
-				if(rs.getString("email").equals( userEmail ) && rs.getString("password").equals( userPassword ) ) {
-					
-					session.setMaxInactiveInterval(600);
-					
-					// ログイン情報.
-					Map<String, String> map = new HashMap<String, String>();
-					map.put( "Email", userEmail );
-					map.put( "Password", userPassword );
-					map.put( "id", rs.getString("id"));
-					map.put( "name", rs.getString("name"));
-
-					// ログイン情報をセッションに保存.
-					session.setAttribute( "login_user", map );
-
-					// トップページへ遷移(リダイレクト).
-					response.sendRedirect( "./" );
-				} else {
-				// ログインフォームへ遷移(リダイレクト).
-					response.sendRedirect( "./login" );
-				}
+			String sql = "INSERT INTO Log(id,state) values(";
+			
+			if(userState.equals("in")){
+				String status_in = "in";
+				sql = sql + userID + ",'in')";
+			}else {
+				String status_out = "out";
+				sql = sql + userID + ",'out')";
 			}
 			
-			conn.close();
+			int num = stmt.executeUpdate(sql);
 			
+			// ログインフォームへ遷移(フォワード).
+			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher( "/" );
+			dispatcher.forward( request, response );
+			
+			conn.close();
+			stmt.close();
+	    
 		}catch(Exception e){}
+			
 	}
 }
-

@@ -38,7 +38,7 @@
 	    <nav class="navi">
         	<ul id="dropmenu">
         		<li <%= hiddenLogin %>><a href="#">新規登録</a></li>
-        		<li <%= hiddenLogout %>><a href="#">マイページ</a></li>
+        		<li <%= hiddenLogout %>><a href="./mypage">マイページ</a></li>
           		<li <%= hiddenLogin %>><a href="./login">ログイン</a></li>
           		<li <%= hiddenLogout %>><a href="./logout">ログアウト</a></li>
          	</ul>

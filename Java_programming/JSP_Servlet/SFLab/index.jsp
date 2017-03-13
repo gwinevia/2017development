@@ -8,6 +8,7 @@
 	String hiddenLogin = "";
 	String hiddenLogout = "";
 	String id = "";
+	String admin = "";
 	
 	if ( null == map ) {
 		// ログアウト中.
@@ -18,6 +19,10 @@
 		userPassword = (String)map.get( "Password" );
 		id = (String)map.get("id");
 		hiddenLogin = "hidden";
+		String userName = (String)map.get("name");
+		if(userName.equals("SFLab")){
+			admin = "true";
+		}
 	}
 %>
 <!DOCTYPE html>
@@ -42,6 +47,9 @@
         		<ul>
         			<li <%= hiddenLogout %>><a href="./mypage">マイページ</a></li>
         			<li <%= hiddenLogout %>><a href="./update">設定</a></li>
+        			<% if(admin.equals("true")){ %>
+        				<li <%= admin %>><a href="./member">メンバー管理</a></li>
+	        		<%	} %>
         			<li <%= hiddenLogout %>><a href="./logout">ログアウト</a></li>
         		</ul>
         		</li>
@@ -56,15 +64,6 @@
 	String url = "jdbc:mysql://localhost/2017development";
 	String user = "mmk";
 	String password = "grqt58yj";
-	
-	// ログイン情報.
-	Map<String, String> map_db = new HashMap<String, String>();
-	map.put( "url", url );
-	map.put( "user", user );
-	map.put( "password",password);
-
-	// ログイン情報をセッションに保存.
-	session.setAttribute( "db-info", map );
 
     Class.forName("com.mysql.jdbc.Driver").newInstance();
     conn = DriverManager.getConnection(url, user, password);
@@ -75,7 +74,9 @@
     String sql = "SELECT * FROM Test order by name";
     ResultSet rs = stmt.executeQuery(sql);
     
+    
     while(rs.next()){
+    	if(!rs.getString("name").equals("SFLab") && rs.getString("view").equals("ok")){
 %>
 			<td><%= rs.getString("name") %></td> 
 			<%	
@@ -101,6 +102,7 @@
 		    		</tr>
 		    		<%		    		
 		    	}
+    	}
    }
 
     rs.close();

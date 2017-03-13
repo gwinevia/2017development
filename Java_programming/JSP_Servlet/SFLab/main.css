@@ -275,6 +275,12 @@ input[type="password"] {
 	background-color: #DCDCDC;
 }
 
+.hometable caption {
+	font-size: 20px;
+	font-weight: bolder;
+	text-align: left;
+}
+
 .hometable td#flag {
 	background-color: #F4A460;
 	border: solid 2px #4682B4;
@@ -284,10 +290,45 @@ input[type="password"] {
 	border: solid 2px #4682B4;
 }
 
+.hometable2{
+    line-height: 1.5;
+	border-collapse: collapse;
+	text-align:center;
+	margin-top:100px;
+	margin-bottom:20px;
+ 	margin-left: auto;
+ 	margin-right: auto;
+	width:80%;
+	border: solid 2px #4682B4;
+	background-color: #DCDCDC;
+}
+
+.hometable2 caption {
+	font-size: 20px;
+	font-weight: bolder;
+	text-align: left;
+}
+
+.hometable2 td#flag {
+	background-color: #F4A460;
+	border: solid 2px #4682B4;
+}
+
+.hometable2 td {
+	border: solid 2px #4682B4;
+}
+
 /* mypage */
 .mypage-b {
 	text-align:center;
 	margin: auto;
+	overflow: auto;
+}
+
+.mypage-m {
+	text-align:right;
+	margin-right: 10%;
+	margin-bottom: 100px;
 	overflow: auto;
 }
 
@@ -316,6 +357,10 @@ input[type="password"] {
   background: #D3D3D3;
 }
 
+
+.submit-member imput{
+	text-align: center;
+}
 /* sidebar */
 aside {
   float: left;

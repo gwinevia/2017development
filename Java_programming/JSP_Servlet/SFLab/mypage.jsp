@@ -6,6 +6,11 @@
 	String userPassword = (String)map.get( "Password" );
 	String id = (String)map.get("id");
 	String userName = (String)map.get("name");
+	String admin = "";
+	
+	if(userName.equals("SFLab")){
+		admin = "true";
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -23,8 +28,15 @@
 	<main>
 		<nav class="navi">
         	<ul id="dropmenu">
-        		<li><a href="./logout">ログアウト</a></li>
-        		<li><a href="./update">設定</a></li>
+        		<li><a href="#">Menu</a>
+        		<ul>
+        			<li><a href="./update">設定</a></li>
+        			<% if(admin.equals("true")){ %>
+        				<li <%= admin %>><a href="./member">メンバー管理</a></li>
+	        		<%	} %>
+        			<li><a href="./logout">ログアウト</a></li>
+         		</ul>
+         		</li>
          	</ul>
        	</nav>
 		<div>
@@ -34,22 +46,22 @@
     			</section>
     			<hr width=80%>
 <%
-	Connection conn = null;
-	Connection conn2 = null;
-	Map<String, String> map_db = (Map<String, String>)session.getAttribute( "db-info" );
-	String url = (String)map_db.get("url");
-	String user = (String)map_db.get("user");
-	String password = (String)map_db.get("password");
+	if(!admin.equals("true")){
+		Connection conn = null;
+		Connection conn2 = null;
+		String url = "jdbc:mysql://localhost/2017development";
+		String user = "mmk";
+		String password = "grqt58yj";
 
-    Class.forName("com.mysql.jdbc.Driver").newInstance();
-    conn = DriverManager.getConnection(url, user, password);
-    Statement stmt = conn.createStatement();
+    	Class.forName("com.mysql.jdbc.Driver").newInstance();
+    	conn = DriverManager.getConnection(url, user, password);
+    	Statement stmt = conn.createStatement();
     
-    String sql = "SELECT state FROM Log WHERE id=" + id + " order by time desc";
-    ResultSet rs = stmt.executeQuery(sql);
-    rs.next();
+    	String sql = "SELECT state FROM Log WHERE id=" + id + " order by time desc";
+    	ResultSet rs = stmt.executeQuery(sql);
+    	rs.next();
     
-	if(rs.getString("state").equals("in")){
+		if(rs.getString("state").equals("in")){
 %>
 				<form method="post" action="./mypage">
 				    <input type="hidden" name="state" value="out">
@@ -57,7 +69,7 @@
         			<input type="submit" value="退室" id="mypage-submit"/></p>
     		 	</form>
 <%
-	}else {
+		}else {
 %>
 				<form method="post" action="./mypage">
 					<input type="hidden" name="state" value="in">
@@ -65,11 +77,12 @@
     				<input type="button" name="state" value="退室" disabled id="mypage-submit"></p>
 		 		</form>
 <%	
-	}
+		}
 	
-	rs.close();
-	stmt.close();
-    conn.close();
+		rs.close();
+		stmt.close();
+    	conn.close();
+	}
 %>
 		 	 </aside>
 		</div>
@@ -83,6 +96,5 @@
     		</ul>
   		</nav>
 	</footer>
-	</body>
 	</body>
 </html>

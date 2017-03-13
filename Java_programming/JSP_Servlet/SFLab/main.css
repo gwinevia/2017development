@@ -1,0 +1,342 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color:#f3f3e9;
+  height: 100%;	/* 縦の高さを100% */
+  width: 100%;	/* 横の幅を100% */
+}
+
+/* header */
+
+header {
+  height: 100%;
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 20px;
+  color: white;
+  background-color: black;
+  position: relative;
+}
+
+main {
+  height: 100%;
+  width: 100%;	
+  overflow: auto;
+}
+
+.navi {
+  position: absolute;
+  background-color: #4682B4;
+  width: 100%;
+  height: 47px;
+  margin: 0;
+  padding: 0;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+#dropmenu {
+  list-style-type: none;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+}
+#dropmenu li {
+  position: relative;
+  width: 20%;
+  float: right;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+#dropmenu li a {
+  display: block;
+  margin: 0;
+  padding: 16px 0;
+  background: #4682B4;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1;
+  text-decoration: none;
+}
+#dropmenu li ul {
+  list-style: none;
+  position: absolute;
+  z-index: 100;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+#dropmenu li ul li {
+  overflow: hidden;
+  width: 100%;
+  height: 0;
+  color: #fff;
+  transition: .2s;
+}
+#dropmenu li ul li a {
+  padding: 13px 15px;
+  background: #4682B4;
+  text-align: left;
+  font-size: 12px;
+  font-weight: normal;
+}
+#dropmenu > li:hover > a {  background: #5F9EA0 }
+#dropmenu > li:hover li:hover > a {  background: #00BFFF }
+#dropmenu > li:hover > ul > li {
+  overflow: visible;
+  height: 38px;
+}
+#dropmenu li ul li ul {
+  top: 0;
+  left: 100%;
+}
+#dropmenu li:last-child ul li ul {
+  left: -100%;
+  width: 100%;
+}
+#dropmenu li ul li ul:before {
+  position: absolute;
+  content: "";
+  top: 13px;
+  left: -20px;
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+  border-left-color: #454e08;
+}
+#dropmenu li:last-child ul li ul:before {
+  position: absolute;
+  content: "";
+  top: 13px;
+  left: 200%;
+  margin-left: -20px;
+  border: 5px solid transparent;
+  border-right-color: #454e08;
+}
+#dropmenu li ul li:hover > ul > li {
+  overflow: visible;
+  height: 38px;
+}
+#dropmenu li ul li ul li a {  background: #616d0b }
+#dropmenu li:hover ul li ul li a:hover {  background: #535d09 }
+
+/* リンク関連 */
+a {
+  text-decoration: none;
+}
+
+a:link { color: white; }
+a:visited { color: white; }
+a:hover { color: white; }
+a:active { color: white; }
+
+section {
+  overflow: auto;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.system {
+	background-color: white;
+	text-align: center;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1;
+}
+
+h1 {
+  font-size: 3em;
+  letter-spacing: -2px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.2em;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: normal;
+  color: $gray-light;
+}
+
+p {
+  font-size: 1.1em;
+  line-height: 1.7em;
+}
+
+/* footer */
+footer{
+	background-color: black;   /* 背景色(黒) */
+	width:100%;               /* 横の幅を100% */
+	height: 40px;            /* 縦の幅を120px */
+	position: fixed;       /* 絶対位置指定することを定義 */
+	bottom: 0px;              /* 絶対位置指定(左0px,下0px) */
+	padding: 5px 0;          /* 上下に余白を取る */
+}
+	
+.footernavi{
+  position: relative;
+  width: 10%;
+  float: right;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  display: inline-block;
+}
+
+.footernavi a {
+  display: block;
+  margin: 0;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1;
+  text-decoration: none;
+}
+
+/* ログインフォーム */
+#form{
+    width: 400px;
+    margin: 100px auto 100px;
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #4682B4;
+}
+
+form p{
+    font-size: 14px;
+}
+
+.form-title{
+    text-align: center;
+}
+
+.name,.mail,.pass{
+    margin-bottom: 10px;
+}
+
+input[type="name"],
+input[type="email"],
+input[type="password"] {
+    width: 300px;
+    padding: 4px;
+    font-size: 14px;
+}
+    
+.submit{
+    text-align: right;
+}
+    
+/* font */
+#form p{
+  color: #4682B4;
+  font-weight: bold;
+}
+
+#form .form-title{
+  font-family: Arial;
+  font-size: 30px;
+  color: #4682B4;
+}
+.submit input{
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 16px;
+  padding-top: 10px;
+  padding-right: 20px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  margin-top: 30px;
+  text-decoration: none;
+  background-color: #4682B4;
+}
+.submit input:hover{
+  background: #37a4bf;
+}
+
+.hometable{
+    line-height: 1.5;
+	border-collapse: collapse;
+	text-align:center;
+	margin-top:100px;
+	margin-bottom:100px;
+ 	margin-left: auto;
+ 	margin-right: auto;
+	width:80%;
+	border: solid 2px #4682B4;
+	background-color: #DCDCDC;
+}
+
+.hometable td#flag {
+	background-color: #F4A460;
+	border: solid 2px #4682B4;
+}
+
+.hometable td {
+	border: solid 2px #4682B4;
+}
+
+/* mypage */
+.mypage-b {
+	text-align:center;
+	margin: auto;
+	overflow: auto;
+}
+
+#mypage-submit{
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 16px;
+  padding-top: 10px;
+  padding-right: 30px;
+  padding-bottom: 10px;
+  padding-left: 30px;
+  margin-top: 10px;
+  margin-left: 15px;
+  text-decoration: none;
+  background-color: #4682B4;
+  border-radius:8px;
+  -moz-border-radius:8px;
+  -webkit-border-radius:8px;
+}
+
+#mypage-submit:hover{
+  background: #37a4bf;
+}
+
+#mypage-submit:disabled{
+  background: #D3D3D3;
+}
+
+/* sidebar */
+aside {
+  float: left;
+  width: 50%;
+  overflow: auto;
+  margin-top: 80px;
+  margin-bottom: 80px;
+  section.user_info {
+    margin-top: 20px;
+  }
+  section {
+    padding: 10px 0;
+    margin-top: 20px;
+    &:first-child {
+      border: 0;
+      padding-top: 0;
+    }
+    span {
+      display: block;
+      margin-bottom: 3px;
+      line-height: 1;
+    }
+  }
+}

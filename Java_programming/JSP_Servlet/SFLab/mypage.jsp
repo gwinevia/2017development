@@ -36,9 +36,10 @@
 <%
 	Connection conn = null;
 	Connection conn2 = null;
-	String url = "jdbc:mysql://localhost/2017development";
-	String user = "mmk";
-	String password = "grqt58yj";
+	Map<String, String> map_db = (Map<String, String>)session.getAttribute( "db-info" );
+	String url = (String)map_db.get("url");
+	String user = (String)map_db.get("user");
+	String password = (String)map_db.get("password");
 
     Class.forName("com.mysql.jdbc.Driver").newInstance();
     conn = DriverManager.getConnection(url, user, password);

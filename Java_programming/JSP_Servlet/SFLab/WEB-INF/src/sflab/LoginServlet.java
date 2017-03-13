@@ -18,7 +18,7 @@ public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	Connection conn = null;
-	String url = "jdbc:mysql://localhost/2017development";
+	String url = "jdbc:mysql://localhost/sflab";
 	String user = "mmk";
 	String password = "grqt58yj";
 
@@ -69,7 +69,7 @@ public class LoginServlet extends HttpServlet {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			conn = DriverManager.getConnection(url, user, password);
 			Statement stmt = conn.createStatement();
-			String sql = "SELECT * FROM Test";
+			String sql = "SELECT * FROM Member";
 			ResultSet rs = stmt.executeQuery(sql);
 	    
 			while(rs.next()){

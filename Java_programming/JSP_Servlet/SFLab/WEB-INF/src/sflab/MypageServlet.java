@@ -18,7 +18,7 @@ public class MypageServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	
 	Connection conn = null;
-	String url = "jdbc:mysql://localhost/2017development";
+	String url = "jdbc:mysql://localhost/sflab";
 	String user = "mmk";
 	String password = "grqt58yj";
 

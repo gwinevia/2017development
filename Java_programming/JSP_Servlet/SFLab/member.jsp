@@ -39,7 +39,7 @@
 		<tr>
 <%
 	Connection conn = null;
-	String url = "jdbc:mysql://localhost/2017development";
+	String url = "jdbc:mysql://localhost/sflab";
 	String user = "mmk";
 	String password = "grqt58yj";
 
@@ -47,7 +47,7 @@
     conn = DriverManager.getConnection(url, user, password);
     Statement stmt = conn.createStatement();
     
-    String sql = "SELECT * FROM Test order by name";
+    String sql = "SELECT * FROM Member order by name";
     ResultSet rs = stmt.executeQuery(sql);
     
     

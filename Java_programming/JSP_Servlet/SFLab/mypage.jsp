@@ -49,7 +49,7 @@
 	if(!admin.equals("true")){
 		Connection conn = null;
 		Connection conn2 = null;
-		String url = "jdbc:mysql://localhost/2017development";
+		String url = "jdbc:mysql://localhost/sflab";
 		String user = "mmk";
 		String password = "grqt58yj";
 
@@ -76,16 +76,32 @@
     				<p class="mypage-b"><input type="submit" value="在室" id="mypage-submit"/>
     				<input type="button" name="state" value="退室" disabled id="mypage-submit"></p>
 		 		</form>
-<%	
+<%
 		}
 	
 		rs.close();
-		stmt.close();
-    	conn.close();
-	}
+
+		sql = "SELECT * FROM Tweet WHERE id=" + id + " order by time desc";
+		rs = stmt.executeQuery(sql);
+
 %>
 		 	 </aside>
 		</div>
+		<aside class="Logform">
+			<table>
+				<tr>
+<%
+		while(rs.next()){
+%>
+				<td><%= rs.getString("tweet") %></td>
+				<td><%= rs.getString("time") %></td>
+				</tr>
+<%		
+		}
+	}
+%>
+			</table>
+		</aside>
 	</main>
 		
 	<footer>

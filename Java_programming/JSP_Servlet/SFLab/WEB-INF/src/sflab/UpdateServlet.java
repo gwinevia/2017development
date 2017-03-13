@@ -17,7 +17,7 @@ public class UpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	Connection conn = null;
-	String url = "jdbc:mysql://localhost/2017development";
+	String url = "jdbc:mysql://localhost/sflab";
 	String user = "mmk";
 	String password = "grqt58yj";
 
@@ -71,7 +71,7 @@ public class UpdateServlet extends HttpServlet {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			conn = DriverManager.getConnection(url, user, password);
 			Statement stmt = conn.createStatement();
-			String sql = "UPDATE Test set ";
+			String sql = "UPDATE Member set ";
 			
 			// ログイン情報.
 			HttpSession session = request.getSession( true );
@@ -84,7 +84,7 @@ public class UpdateServlet extends HttpServlet {
 				stmt.executeUpdate(sql);
 			}
 			
-			sql = "UPDATE Test set ";
+			sql = "UPDATE Member set ";
 			
 			if (!userEmail.equals("")) {
 				map.put( "Email", userEmail );

@@ -17,7 +17,7 @@ public class MemberServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	
 	Connection conn = null;
-	String url = "jdbc:mysql://localhost/2017development";
+	String url = "jdbc:mysql://localhost/sflab";
 	String user = "mmk";
 	String password = "grqt58yj";
 
@@ -68,15 +68,15 @@ public class MemberServlet extends HttpServlet{
 			while(i<=num){
 				userID = userView[i];
 				
-				sql = "SELECT * FROM Test where id = " + userID;
+				sql = "SELECT * FROM Member where id = " + userID;
 				rs = stmt.executeQuery(sql);
 				rs.next();
 				
 				if(rs.getString("view").equals("no")){
-					sql = "UPDATE Test set view = 'ok' where id =" + userID;
+					sql = "UPDATE Member set view = 'ok' where id =" + userID;
 					stmt.executeUpdate(sql);
 				}else {
-					sql = "UPDATE Test set view = 'no' where id =" + userID;
+					sql = "UPDATE Member set view = 'no' where id =" + userID;
 					stmt.executeUpdate(sql);									
 				}
 				

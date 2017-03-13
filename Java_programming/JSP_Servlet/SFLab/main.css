@@ -332,6 +332,10 @@ input[type="password"] {
 	overflow: auto;
 }
 
+.Logform {
+	margin-top: 70px;
+}
+
 #mypage-submit{
   font-family: Arial;
   color: #ffffff;

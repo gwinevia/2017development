@@ -17,7 +17,7 @@ public class NewUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	Connection conn = null;
-	String url = "jdbc:mysql://localhost/2017development";
+	String url = "jdbc:mysql://localhost/sflab";
 	String user = "mmk";
 	String password = "grqt58yj";
 
@@ -78,10 +78,10 @@ public class NewUserServlet extends HttpServlet {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			conn = DriverManager.getConnection(url, user, password);
 			Statement stmt = conn.createStatement();
-			String sql = "INSERT INTO Test(name,email,password) values('" + userName + "','" + userEmail + "','" + userPassword + "')";
+			String sql = "INSERT INTO Member(name,email,password) values('" + userName + "','" + userEmail + "','" + userPassword + "')";
 			stmt.executeUpdate(sql);
 			
-			sql = "SELECT id FROM Test where name='" + userName + "' and password='" + userPassword +  "'";
+			sql = "SELECT id FROM Member where name='" + userName + "' and password='" + userPassword +  "'";
 			ResultSet rs = stmt.executeQuery(sql);
 			rs.next();
 			

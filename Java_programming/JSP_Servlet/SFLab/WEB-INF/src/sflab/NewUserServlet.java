@@ -72,6 +72,7 @@ public class NewUserServlet extends HttpServlet {
 		map.put( "Email", userEmail );
 		map.put( "Password", userPassword );
 		map.put( "name", userName);
+		map.put( "image", "sample.png");
 		
 		
 		try{

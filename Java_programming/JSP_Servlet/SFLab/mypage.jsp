@@ -96,7 +96,7 @@
 
 %>
 			<form method="post" action="./mypage">
-				<textarea name="tweet" class="textarea" col="30" rows="5" placeholder="例)ここはラボ"></textarea>
+				<textarea name="tweet" class="textarea" col="30" rows="5" maxlength="140" placeholder="例)ここはラボ"></textarea>
 				<p class="mypage-b"><input type="submit" value="送信" id="mypage-submit"/></p>
 			</form>
 		 	</aside>

@@ -75,7 +75,7 @@ public class MypageServlet extends HttpServlet{
 					stmt.executeUpdate(sql);
 				}
 				
-			}else if(userTweet != null){
+			}else if(userTweet != null && !hasXssChars(userTweet)){
 				sql = "INSERT INTO Tweet(id,tweet) values(" + userID + ",'" + userTweet + "')";
 				stmt.executeUpdate(sql);
 				// ログインフォームへ遷移(フォワード).
@@ -91,8 +91,15 @@ public class MypageServlet extends HttpServlet{
 			conn.close();
 			stmt.close();
 	    
-		}catch(Exception e){}
-			
+		}catch(Exception e){}		
+	}
+
+	public boolean hasXssChars(String str) {
+		if (str.matches(".*[<>&\"'].*")){
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
 

@@ -59,7 +59,7 @@ public class LogServlet extends HttpServlet{
 			Statement stmt = conn.createStatement();
 			String sql = "";
 				
-			if(userTweet != null){
+			if(userTweet != null && !hasXssChars(userTweet)){
 				sql = "INSERT INTO Tweet(id,tweet) values(" + userID + ",'" + userTweet + "')";
 				stmt.executeUpdate(sql);
 				// ログインフォームへ遷移(フォワード).
@@ -79,5 +79,11 @@ public class LogServlet extends HttpServlet{
 			
 	}
 	
-	
+	public boolean hasXssChars(String str) {
+		if (str.matches(".*[<>&\"'].*")){
+			return true;
+		}else {
+			return false;
+		}
+	}
 }

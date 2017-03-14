@@ -2,15 +2,30 @@
 <%@ page import="java.util.Map, java.util.*,java.io.*,java.sql.*,java.text.*" %>
 <%
 	Map<String, String> map = (Map<String, String>)session.getAttribute( "login_user" );
-	String userEmail = (String)map.get( "Email" );;
-	String userPassword = (String)map.get( "Password" );
-	String id = (String)map.get("id");
-	String userName = (String)map.get("name");
-	String image = "./uploaded/" + (String)map.get("image");
+	String userEmail = "";
+	String userPassword = "";
+	String id = "";
+	String userName = "";
 	String admin = "";
+	String image = "";
+	String hiddenLogin = "";
+	String hiddenLogout = "";
 	
-	if(userName.equals("SFLab")){
-		admin = "true";
+	if ( null == map ) {
+		// ログアウト中.
+		hiddenLogout = "hidden";
+	} else {
+		// ログイン中.
+		userEmail = (String)map.get( "Email" );
+		userPassword = (String)map.get( "Password" );
+		id = (String)map.get("id");
+		hiddenLogin = "hidden";
+		userName = (String)map.get("name");
+		image = "./uploaded/" + (String)map.get("image");
+		
+		if(userName.equals("SFLab")){
+			admin = "true";
+		}
 	}
 %>
 <!DOCTYPE html>
@@ -27,21 +42,27 @@
 	</header>
 
 	<main>
-		<nav class="navi">
+	    <nav class="navi">
         	<ul id="dropmenu">
         		<li><a href="#">Menu</a>
         		<ul>
-        			<li><a href="./update">設定</a></li>
+        			<li <%= hiddenLogout %>><a href="./mypage">マイページ</a></li>
+        			<li <%= hiddenLogout %>><a href="./update">設定</a></li>
+        			<li><a href="./log">作業ログ</a></li>
         			<% if(admin.equals("true")){ %>
         				<li <%= admin %>><a href="./member">メンバー管理</a></li>
 	        		<%	} %>
-	        		<li><a href="./log">作業ログ</a></li>
-        			<li><a href="./logout">ログアウト</a></li>
-         		</ul>
-         		</li>
+	        		<li <%= hiddenLogin %>><a href="./newuser">新規登録</a></li>
+	        		<li <%= hiddenLogin %>><a href="./login">ログイン</a></li>
+        			<li <%= hiddenLogout %>><a href="./logout">ログアウト</a></li>
+        		</ul>
+        		</li>
          	</ul>
-       	</nav>
+       </nav>
 		<div>
+<%
+	if(hiddenLogin.equals("hidden") && !admin.equals("true")){
+%>
   			<aside>
     			<section class="user_info">
     				<img src="<%= image %>">
@@ -49,7 +70,7 @@
     			</section>
     			<hr width=80%>
 <%
-	if(!admin.equals("true")){
+
 		Connection conn = null;
 		Connection conn2 = null;
 		String url = "jdbc:mysql://localhost/sflab";
@@ -59,33 +80,14 @@
     	Class.forName("com.mysql.jdbc.Driver").newInstance();
     	conn = DriverManager.getConnection(url, user, password);
     	Statement stmt = conn.createStatement();
-    
-    	String sql = "SELECT state FROM Log WHERE id=" + id + " order by time desc";
-    	ResultSet rs = stmt.executeQuery(sql);
-    	rs.next();
-    
-		if(rs.getString("state").equals("in")){
-%>
-				<form method="post" action="./mypage">
-				    <input type="hidden" name="state" value="out">
-        			<p class="mypage-b"><input type="button" name="state" value="在室" disabled id="mypage-submit">
-        			<input type="submit" value="退室" id="mypage-submit"/></p>
-    		 	</form>
-<%
-		}else {
-%>
-				<form method="post" action="./mypage">
-					<input type="hidden" name="state" value="in">
-    				<p class="mypage-b"><input type="submit" value="在室" id="mypage-submit"/>
-    				<input type="button" name="state" value="退室" disabled id="mypage-submit"></p>
-		 		</form>
-<%
-		}
-	
-		rs.close();
+    	conn2 = DriverManager.getConnection(url, user, password);
+    	Statement stmt2 = conn2.createStatement();
+ 
+    	String sql2 = "";
+    	ResultSet rs2;
 
-		sql = "SELECT * FROM Tweet WHERE id=" + id + " order by time desc";
-		rs = stmt.executeQuery(sql);
+    	String sql = "SELECT * FROM Tweet order by time desc";
+		ResultSet rs = stmt.executeQuery(sql);
 		
 		int len = 0;
 		String time  ="";
@@ -95,12 +97,13 @@
 		rs.beforeFirst();
 
 %>
-			<form method="post" action="./mypage">
+			<form method="post" action="./log">
 				<textarea name="tweet" class="textarea" col="30" rows="5" placeholder="例)ここはラボ"></textarea>
 				<p class="mypage-b"><input type="submit" value="送信" id="mypage-submit"/></p>
 			</form>
 		 	</aside>
 		</div>
+		
 		<aside class="Logform">
 			<h3>作業ログ(<%= number_of_row %>)</h3>
 		    <hr width="80%" color="#ccc" align="left">
@@ -110,8 +113,14 @@
 			time = rs.getString("time");
 			len = time.length();
 			time = time.substring(0,len-2);
+			sql2 = "SELECT * FROM Member where id=" +  rs.getString("id");
+			rs2 = stmt2.executeQuery(sql2);
+			rs2.next();
+			
 %>
 			<li>
+			<span class="image"><img src="./uploaded/<%= rs2.getString("image") %>" width="40px" height="40px"></span>
+			<span class="user"><%= rs2.getString("name") %></span>
   			<span class="content"><%= rs.getString("tweet") %></span>
   			<span class="timestamp"><%= time %></span>
 			</li>

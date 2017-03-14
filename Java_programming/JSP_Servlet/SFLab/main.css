@@ -325,6 +325,8 @@ input[type="password"] {
 .microposts {
   list-style: none;
   padding: 0;
+  overflow: auto;
+  height: 500px;
 }
 
 .microposts li {
@@ -339,13 +341,19 @@ input[type="password"] {
   font-size: 25px;
   margin-bottom: -5px;
 }
+
+.image {
+	float:left;
+}
 .user {
   margin-top: 5em;
   padding-top: 0;
+  margin-left: 3px;
+  margin-bottom: 5px;
 }
 .content {
   display: block;
-  margin-top:5px;
+  margin-top:8px;
   margin-left: 10%;
   margin-bottom: 5px;
 }
@@ -411,6 +419,16 @@ input[type="password"] {
 	margin-right: auto;
 	width: 40%;
 	height:40%;
+}
+
+.textarea {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 70%;
+	hight: 100px;
+	margin-top: 30px;
+	text-align: center;
 }
 
 /* sidebar */

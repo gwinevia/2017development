@@ -12,9 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.*;
 
-@WebServlet("/mypage")
-public class MypageServlet extends HttpServlet{
-
+@WebServlet("/log")
+public class LogServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	
 	Connection conn = null;
@@ -22,7 +21,7 @@ public class MypageServlet extends HttpServlet{
 	String user = "mmk";
 	String password = "grqt58yj";
 
-	public MypageServlet() {
+	public LogServlet() {
 		super();
 	}
 	
@@ -38,9 +37,9 @@ public class MypageServlet extends HttpServlet{
 			response.sendRedirect( "./login" );
 			return;
 		}
-
+		
 		// ログインフォームへ遷移(フォワード).
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher( "/mypage.jsp" );
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher( "/log.jsp" );
 		dispatcher.forward( request, response );
 	}
 
@@ -51,8 +50,7 @@ public class MypageServlet extends HttpServlet{
 		HttpSession session = request.getSession( true );
 		Map<String, String> map2 = (Map<String, String>)session.getAttribute( "login_user" );
 		String userID = (String)map2.get("id");
-		
-		String userState = request.getParameter("state");
+
 		String userTweet = request.getParameter("tweet");
 		
 		try{
@@ -60,26 +58,12 @@ public class MypageServlet extends HttpServlet{
 			conn = DriverManager.getConnection(url, user, password);
 			Statement stmt = conn.createStatement();
 			String sql = "";
-			
-			if(userState != null){
-				sql = "INSERT INTO Log(id,state) values(";
-				if(userState.equals("in")){
-					sql = sql + userID + ",'in')";
-					stmt.executeUpdate(sql);
-					sql = "INSERT INTO Tweet(id,tweet) values(" + userID + ",'在室')";
-					stmt.executeUpdate(sql);
-				}else {
-					sql = sql + userID + ",'out')";
-					stmt.executeUpdate(sql);
-					sql = "INSERT INTO Tweet(id,tweet) values(" + userID + ",'退室')";
-					stmt.executeUpdate(sql);
-				}
 				
-			}else if(userTweet != null){
+			if(userTweet != null){
 				sql = "INSERT INTO Tweet(id,tweet) values(" + userID + ",'" + userTweet + "')";
 				stmt.executeUpdate(sql);
 				// ログインフォームへ遷移(フォワード).
-				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher( "/mypage.jsp" );
+				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher( "/log.jsp" );
 				dispatcher.forward( request, response );
 				return;
 			}
@@ -94,5 +78,6 @@ public class MypageServlet extends HttpServlet{
 		}catch(Exception e){}
 			
 	}
+	
+	
 }
-

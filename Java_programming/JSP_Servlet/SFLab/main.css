@@ -235,7 +235,9 @@ input[type="password"] {
     text-align: right;
 }
     
-/* font */
+    
+/* form */
+
 #form p{
   color: #4682B4;
   font-weight: bold;
@@ -318,6 +320,42 @@ input[type="password"] {
 	border: solid 2px #4682B4;
 }
 
+
+
+.microposts {
+  list-style: none;
+  padding: 0;
+}
+
+.microposts li {
+  width: 80%;
+  margin: 0 0 10px 0em;
+  border-bottom: 1px solid #ccc;
+}
+
+.Logform h3 {
+  color: #696969;
+  margin-left: 2%;
+  font-size: 25px;
+  margin-bottom: -5px;
+}
+.user {
+  margin-top: 5em;
+  padding-top: 0;
+}
+.content {
+  display: block;
+  margin-top:5px;
+  margin-left: 10%;
+  margin-bottom: 5px;
+}
+.timestamp {
+  color: #A9A9A9;
+  display: block;
+  margin-left: 60%;
+  margin-bottom: 3px;
+}
+
 /* mypage */
 .mypage-b {
 	text-align:center;
@@ -335,6 +373,7 @@ input[type="password"] {
 .Logform {
 	margin-top: 70px;
 }
+
 
 #mypage-submit{
   font-family: Arial;
@@ -365,6 +404,15 @@ input[type="password"] {
 .submit-member imput{
 	text-align: center;
 }
+
+.user_info img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 40%;
+	height:40%;
+}
+
 /* sidebar */
 aside {
   float: left;

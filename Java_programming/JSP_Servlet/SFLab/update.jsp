@@ -27,13 +27,15 @@
 
 		<div id="form">
     		<p class="form-title">更新</p>
-    		<form method="post" action="./update">
+    		<form method="post" action="./update"  enctype="multipart/form-data">
     			<p>Name</p>
         		<p class="name"><input type="name" name="name" placeholder="NAME"　required autofocus /></p>
         		<p>Email</p>
         		<p class="mail"><input type="email" name="email" placeholder="E-MAIL"　required autofocus /></p>
         		<p>Password</p>
         		<p class="pass"><input type="password" name="password" placeholder="PASSWORD"　required /></p>
+        		<p>Image</p>
+        		<p><input type="file" name="file"/></p>
         		<p class="submit"><input type="submit" value="更新"/></p>
     		</form>
 		</div>

@@ -6,6 +6,7 @@
 	String userPassword = (String)map.get( "Password" );
 	String id = (String)map.get("id");
 	String userName = (String)map.get("name");
+	String image = "./uploaded/" + (String)map.get("image");
 	String admin = "";
 	
 	if(userName.equals("SFLab")){
@@ -42,6 +43,7 @@
 		<div>
   			<aside>
     			<section class="user_info">
+    				<img src="<%= image %>">
       				<h1><%= userName %></h1>
     			</section>
     			<hr width=80%>
@@ -83,24 +85,36 @@
 
 		sql = "SELECT * FROM Tweet WHERE id=" + id + " order by time desc";
 		rs = stmt.executeQuery(sql);
+		
+		int len = 0;
+		String time  ="";
+		
+		rs.last();
+		int number_of_row = rs.getRow();
+		rs.beforeFirst();
 
 %>
 		 	 </aside>
 		</div>
 		<aside class="Logform">
-			<table>
-				<tr>
+			<h3>作業ログ(<%= number_of_row %>)</h3>
+		    <hr width="80%" color="#ccc" align="left">
+			<ol class="microposts">
 <%
 		while(rs.next()){
+			time = rs.getString("time");
+			len = time.length();
+			time = time.substring(0,len-2);
 %>
-				<td><%= rs.getString("tweet") %></td>
-				<td><%= rs.getString("time") %></td>
-				</tr>
+			<li>
+  			<span class="content"><%= rs.getString("tweet") %></span>
+  			<span class="timestamp"><%= time %></span>
+			</li>
 <%		
 		}
 	}
 %>
-			</table>
+			</ol>
 		</aside>
 	</main>
 		

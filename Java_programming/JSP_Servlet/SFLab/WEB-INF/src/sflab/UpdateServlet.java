@@ -1,18 +1,19 @@
 package sflab;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
-
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import java.sql.*;
 
 @WebServlet("/update")
+@MultipartConfig(location="/tmp", maxFileSize=1048576)
 public class UpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -65,6 +66,13 @@ public class UpdateServlet extends HttpServlet {
 			userPassword = "";
 		}
 		
+        Part part = request.getPart("file");
+        String name = "";
+        if(part != null){
+        	name = this.getFileName(part);
+        	part.write(getServletContext().getRealPath("/uploaded") + "/" + name);
+        }
+		
 		
 		try{
 			
@@ -92,13 +100,22 @@ public class UpdateServlet extends HttpServlet {
 				stmt.executeUpdate(sql);
 			}
 			
-			sql = "UPDATE Test set ";
+			sql = "UPDATE Member set ";
 			
 			if (!userPassword.equals("")) {
 				map.put( "Password", userPassword );
 				sql = sql + "password='" + userPassword + "' where id=" + id;
 				stmt.executeUpdate(sql);
 			}
+			
+			sql = "UPDATE Member set ";
+			
+	        if(name != null){
+	        	map.put( "image", name );
+	        	sql = sql + "image='" + name + "' where id=" + id;
+				stmt.executeUpdate(sql);
+	        	
+	        }
 			
 			// ログイン情報をセッションに保存.
 			session.setAttribute( "login_user", map );
@@ -112,5 +129,17 @@ public class UpdateServlet extends HttpServlet {
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher( "/" );
 		dispatcher.forward( request, response );
 	}
+
+    private String getFileName(Part part) {
+        String name = null;
+        for (String dispotion : part.getHeader("Content-Disposition").split(";")) {
+            if (dispotion.trim().startsWith("filename")) {
+                name = dispotion.substring(dispotion.indexOf("=") + 1).replace("\"", "").trim();
+                name = name.substring(name.lastIndexOf("\\") + 1);
+                break;
+            }
+        }
+        return name;
+    }
 }
 

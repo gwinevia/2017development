@@ -84,7 +84,8 @@ public class LoginServlet extends HttpServlet {
 					map.put( "Password", userPassword );
 					map.put( "id", rs.getString("id"));
 					map.put( "name", rs.getString("name"));
-
+					map.put( "image", rs.getString("image"));
+					
 					// ログイン情報をセッションに保存.
 					session.setAttribute( "login_user", map );
 

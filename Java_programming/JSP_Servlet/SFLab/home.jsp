@@ -2,6 +2,7 @@
 <%@ page import="java.util.Map, java.util.*,java.io.*,java.sql.*,java.text.*" %>
 <%
 	Map<String, String> map = (Map<String, String>)session.getAttribute( "login_user" );
+	Map<String, String> dbinfo = (Map<String, String>)session.getAttribute( "db_info" );
 
 	String userEmail = "";
 	String userPassword = "";
@@ -35,7 +36,7 @@
 	<body>
 
 	<header>
-		<h1><a href="./" id="logo">藤田研究室</a></h1>
+		<h1><a href="./home" id="logo">藤田研究室</a></h1>
 	</header>
 	
 
@@ -62,11 +63,11 @@
 <%
 	Connection conn = null;
 	Connection conn2 = null;
-	String url = "jdbc:mysql://localhost/sflab";
-	String user = "mmk";
-	String password = "grqt58yj";
+	String url = (String)dbinfo.get("url");
+	String user = (String)dbinfo.get("user");
+	String password = (String)dbinfo.get("password");
 
-    Class.forName("com.mysql.jdbc.Driver").newInstance();
+    Class.forName("org.postgresql.Driver").newInstance();
     conn = DriverManager.getConnection(url, user, password);
     conn2 = DriverManager.getConnection(url, user, password);
     Statement stmt = conn.createStatement();

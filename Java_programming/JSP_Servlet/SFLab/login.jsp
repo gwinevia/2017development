@@ -9,7 +9,7 @@
 	<body>
 
 	<header>
-		<h1><a href="./" id="logo">藤田研究室</a></h1>
+		<h1><a href="./home" id="logo">藤田研究室</a></h1>
 	</header>
 
 	<main>

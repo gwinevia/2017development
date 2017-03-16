@@ -18,7 +18,7 @@ public class MypageServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	
 	Connection conn = null;
-	String url = "jdbc:mysql://localhost/sflab";
+	String url = "jdbc:postgresql://localhost/sflab";
 	String user = "mmk";
 	String password = "grqt58yj";
 
@@ -56,7 +56,7 @@ public class MypageServlet extends HttpServlet{
 		String userTweet = request.getParameter("tweet");
 		
 		try{
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			Class.forName("org.postgresql.Driver").newInstance();
 			conn = DriverManager.getConnection(url, user, password);
 			Statement stmt = conn.createStatement();
 			String sql = "";
@@ -85,8 +85,9 @@ public class MypageServlet extends HttpServlet{
 			}
 			
 			// ログインフォームへ遷移(フォワード).
-			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher( "/" );
-			dispatcher.forward( request, response );
+			//RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher( "/home.jsp" );
+			response.sendRedirect( "./home" );
+			//dispatcher.forward( request, response );
 			
 			conn.close();
 			stmt.close();

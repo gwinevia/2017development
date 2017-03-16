@@ -18,7 +18,7 @@ public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	Connection conn = null;
-	String url = "jdbc:mysql://localhost/sflab";
+	String url = "jdbc:postgresql://localhost/sflab";
 	String user = "mmk";
 	String password = "grqt58yj";
 
@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
 		// 既にログイン中.
 		if ( null != map ) {
 			// トップページへ遷移(リダイレクト).
-			response.sendRedirect( "./" );
+			response.sendRedirect( "./home" );
 			return;
 		}
 
@@ -66,7 +66,7 @@ public class LoginServlet extends HttpServlet {
 		
 		// ログイン認証.
 		try{
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			Class.forName("org.postgresql.Driver").newInstance();
 			conn = DriverManager.getConnection(url, user, password);
 			Statement stmt = conn.createStatement();
 			String sql = "SELECT * FROM Member";
@@ -88,9 +88,16 @@ public class LoginServlet extends HttpServlet {
 					
 					// ログイン情報をセッションに保存.
 					session.setAttribute( "login_user", map );
+					
+					//データベース情報
+					Map<String, String> dbinfo = new HashMap<String, String>();
+					dbinfo.put( "url", url );
+					dbinfo.put( "password", password );
+					dbinfo.put("user", user);
+					session.setAttribute( "db_info", dbinfo );
 
 					// トップページへ遷移(リダイレクト).
-					response.sendRedirect( "./" );
+					response.sendRedirect( "./home" );
 				}
 			}
 			response.sendRedirect( "./login" );

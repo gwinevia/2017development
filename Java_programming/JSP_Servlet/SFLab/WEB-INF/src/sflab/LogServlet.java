@@ -17,7 +17,7 @@ public class LogServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	
 	Connection conn = null;
-	String url = "jdbc:mysql://localhost/sflab";
+	String url = "jdbc:postgresql://localhost/sflab";
 	String user = "mmk";
 	String password = "grqt58yj";
 
@@ -54,7 +54,7 @@ public class LogServlet extends HttpServlet{
 		String userTweet = request.getParameter("tweet");
 		
 		try{
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			Class.forName("org.postgresql.Driver").newInstance();
 			conn = DriverManager.getConnection(url, user, password);
 			Statement stmt = conn.createStatement();
 			String sql = "";

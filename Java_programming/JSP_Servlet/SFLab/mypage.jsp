@@ -2,6 +2,7 @@
 <%@ page import="java.util.Map, java.util.*,java.io.*,java.sql.*,java.text.*" %>
 <%
 	Map<String, String> map = (Map<String, String>)session.getAttribute( "login_user" );
+	Map<String, String> dbinfo = (Map<String, String>)session.getAttribute( "db_info" );
 	String userEmail = (String)map.get( "Email" );;
 	String userPassword = (String)map.get( "Password" );
 	String id = (String)map.get("id");
@@ -23,7 +24,7 @@
 	<body>
 
 	<header>
-		<h1><a href="./" id="logo">藤田研究室</a></h1>
+		<h1><a href="./home" id="logo">藤田研究室</a></h1>
 	</header>
 
 	<main>
@@ -52,11 +53,11 @@
 	if(!admin.equals("true")){
 		Connection conn = null;
 		Connection conn2 = null;
-		String url = "jdbc:mysql://localhost/sflab";
-		String user = "mmk";
-		String password = "grqt58yj";
+		String url = (String)dbinfo.get("url");
+		String user = (String)dbinfo.get("user");
+		String password = (String)dbinfo.get("password");
 
-    	Class.forName("com.mysql.jdbc.Driver").newInstance();
+    	Class.forName("org.postgresql.Driver").newInstance();
     	conn = DriverManager.getConnection(url, user, password);
     	Statement stmt = conn.createStatement();
     
@@ -89,10 +90,6 @@
 		
 		int len = 0;
 		String time  ="";
-		
-		rs.last();
-		int number_of_row = rs.getRow();
-		rs.beforeFirst();
 
 %>
 			<form method="post" action="./mypage">
@@ -102,7 +99,7 @@
 		 	</aside>
 		</div>
 		<aside class="Logform">
-			<h3>作業ログ(<%= number_of_row %>)</h3>
+			<h3>作業ログ</h3>
 		    <hr width="80%" color="#ccc" align="left">
 			<ol class="microposts">
 <%

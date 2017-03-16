@@ -2,6 +2,7 @@
 <%@ page import="java.util.Map, java.util.*,java.io.*,java.sql.*,java.text.*" %>
 <%
 	Map<String, String> map = (Map<String, String>)session.getAttribute( "login_user" );
+	Map<String, String> dbinfo = (Map<String, String>)session.getAttribute( "db_info" );
 	String userEmail = (String)map.get( "Email" );;
 	String userPassword = (String)map.get( "Password" );
 	String id = (String)map.get("id");
@@ -17,7 +18,7 @@
 	<body>
 
 	<header>
-		<h1><a href="./" id="logo">藤田研究室</a></h1>
+		<h1><a href="./home" id="logo">藤田研究室</a></h1>
 	</header>
 
 	<main>
@@ -27,7 +28,7 @@
         		<ul>
         			<li><a href="./mypage">マイページ</a></li>
         			<li><a href="./update">設定</a></li>
-        			<li><a href="./members">メンバー管理</a></li>
+        			<li><a href="./log">作業ログ</a></li>
         			<li><a href="./logout">ログアウト</a></li>
          		</ul>
          		</li>
@@ -39,11 +40,11 @@
 		<tr>
 <%
 	Connection conn = null;
-	String url = "jdbc:mysql://localhost/sflab";
-	String user = "mmk";
-	String password = "grqt58yj";
+	String url = (String)dbinfo.get("url");
+	String user = (String)dbinfo.get("user");
+	String password = (String)dbinfo.get("password");
 
-    Class.forName("com.mysql.jdbc.Driver").newInstance();
+    Class.forName("org.postgresql.Driver").newInstance();
     conn = DriverManager.getConnection(url, user, password);
     Statement stmt = conn.createStatement();
     
@@ -62,7 +63,8 @@
     	}
     }
  
-    rs.beforeFirst();
+    rs.close();
+    rs = stmt.executeQuery(sql);
     
     while(rs.next()){
     	if(!rs.getString("name").equals("SFLab") && rs.getString("view").equals("no")){ 

@@ -26,7 +26,7 @@ public class LogoutServlet extends HttpServlet {
 		}
 
 		// トップページへ遷移(リダイレクト).
-		response.sendRedirect( "./" );
+		response.sendRedirect( "./home" );
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

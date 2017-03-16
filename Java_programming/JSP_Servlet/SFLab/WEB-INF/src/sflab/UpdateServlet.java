@@ -18,7 +18,7 @@ public class UpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	Connection conn = null;
-	String url = "jdbc:mysql://localhost/sflab";
+	String url = "jdbc:postgresql://localhost/sflab";
 	String user = "mmk";
 	String password = "grqt58yj";
 
@@ -70,13 +70,12 @@ public class UpdateServlet extends HttpServlet {
         String name = "";
         if(part != null){
         	name = this.getFileName(part);
-        	part.write(getServletContext().getRealPath("/uploaded") + "/" + name);
         }
 		
 		
 		try{
 			
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			Class.forName("org.postgresql.Driver").newInstance();
 			conn = DriverManager.getConnection(url, user, password);
 			Statement stmt = conn.createStatement();
 			String sql = "UPDATE Member set ";
@@ -111,6 +110,7 @@ public class UpdateServlet extends HttpServlet {
 			sql = "UPDATE Member set ";
 			
 	        if(name != null){
+	        	part.write(getServletContext().getRealPath("/uploaded") + "/" + name);
 	        	map.put( "image", name );
 	        	sql = sql + "image='" + name + "' where id=" + id;
 				stmt.executeUpdate(sql);
@@ -126,8 +126,7 @@ public class UpdateServlet extends HttpServlet {
 	    
 		}catch(Exception e){}	
 		
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher( "/" );
-		dispatcher.forward( request, response );
+		response.sendRedirect( "./home" );
 	}
 
     private String getFileName(Part part) {

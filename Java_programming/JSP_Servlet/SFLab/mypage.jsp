@@ -106,7 +106,7 @@
 		while(rs.next()){
 			time = rs.getString("time");
 			len = time.length();
-			time = time.substring(0,len-2);
+			time = time.substring(0,len-7);
 %>
 			<li>
   			<span class="content"><%= rs.getString("tweet") %></span>

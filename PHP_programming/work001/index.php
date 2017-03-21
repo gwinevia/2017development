@@ -1,35 +1,27 @@
 <?php
 
-	//入門
-	//echo "hello from the TOP!";
-	//echo "hello from the TOP! again";
-
 	/*
-		変数:データにつけるラベル
-		データ型:
-			- 文字列 string 
-			- 数値 integer float
-			- 論理値 boolean / true false
-			- 配列
-			- オブジェクト
-			- null
+		整数値の演算
+		+ - * / % **
 	*/
 
-	$msg = "hello from the TOP!";
-	echo $msg;
-	var_dump($msg);
+		$x = 10 % 3;
+		$y = 30.2 / 4;
+		var_dump($x);
+		var_dump($y);
 
-	/*
-		定数:変更されない値につけるラベル
-	*/
+		//単項演算子 ++ --
+		$z = 5;
+		$z++;
+		var_dump($z);
+		$z--;
+		var_dump($z);
 
-	define("MY_EMAIL","sample@gmail.com");
-	echo MY_EMAIL;
-
-	var_dump(__LINE__);
-	var_dump(__FILE__);
-	var_dump(__DIR__);
-
+		//代入を伴う演算子
+		$s = 5;
+		//$s = $s * 2;
+		$s *= 2;
+		var_dump($s);
 
 ?>
 <!DOCTYPE html>
@@ -38,6 +30,5 @@
 		<title>Sample</title>
 	</head>
 	<body>
-		<p>Hello World <?php echo " from PHP"; ?></p>
 	</body>
 </html>

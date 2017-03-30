@@ -19,8 +19,8 @@ public class UpdateServlet extends HttpServlet {
 	
 	Connection conn = null;
 	String url = "jdbc:postgresql://localhost/sflab";
-	String user = "mmk";
-	String password = "grqt58yj";
+	String user = "ユーザ名";
+	String password = "パスワード";
 
 	public UpdateServlet() {
 		super();
@@ -34,12 +34,12 @@ public class UpdateServlet extends HttpServlet {
 		Map<String, String> map = (Map<String, String>)session.getAttribute( "login_user" );
 
 		if ( null == map ) {
-			// トップページへ遷移(リダイレクト).
+			// ログインページへ遷移(リダイレクト).
 			response.sendRedirect( "./login" );
 			return;
 		}
 
-		// ログインフォームへ遷移(フォワード).
+		// 設定のページへ遷移(フォワード).
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher( "/update.jsp" );
 		dispatcher.forward( request, response );
 	}
@@ -49,6 +49,7 @@ public class UpdateServlet extends HttpServlet {
 		// エンコード設定.
 		request.setCharacterEncoding( "UTF-8" );	
 		
+		// 名前 を取得.
 		String userName = request.getParameter( "name" );
 		if ( null == userName ) {
 			userName = "";
@@ -66,11 +67,12 @@ public class UpdateServlet extends HttpServlet {
 			userPassword = "";
 		}
 		
-        Part part = request.getPart("file");
-        String name = "";
-        if(part != null){
-        	name = this.getFileName(part);
-        }
+		// アップロード画像 を取得
+    Part part = request.getPart("file");
+    String name = "";
+    if(part != null){
+    	name = this.getFileName(part);
+    }
 		
 		
 		try{
@@ -109,13 +111,12 @@ public class UpdateServlet extends HttpServlet {
 			
 			sql = "UPDATE Member set ";
 			
-	        if(name != null){
-	        	part.write(getServletContext().getRealPath("/uploaded") + "/" + name);
-	        	map.put( "image", name );
-	        	sql = sql + "image='" + name + "' where id=" + id;
-				stmt.executeUpdate(sql);
-	        	
-	        }
+	    if(name != null){
+	      part.write(getServletContext().getRealPath("/uploaded") + "/" + name);
+	      map.put( "image", name );
+	      sql = sql + "image='" + name + "' where id=" + id;
+				stmt.executeUpdate(sql);    	
+	    }
 			
 			// ログイン情報をセッションに保存.
 			session.setAttribute( "login_user", map );
@@ -129,16 +130,16 @@ public class UpdateServlet extends HttpServlet {
 		response.sendRedirect( "./home" );
 	}
 
-    private String getFileName(Part part) {
-        String name = null;
-        for (String dispotion : part.getHeader("Content-Disposition").split(";")) {
-            if (dispotion.trim().startsWith("filename")) {
-                name = dispotion.substring(dispotion.indexOf("=") + 1).replace("\"", "").trim();
-                name = name.substring(name.lastIndexOf("\\") + 1);
-                break;
-            }
-        }
-        return name;
-    }
+  private String getFileName(Part part) {
+      String name = null;
+      for (String dispotion : part.getHeader("Content-Disposition").split(";")) {
+          if (dispotion.trim().startsWith("filename")) {
+              name = dispotion.substring(dispotion.indexOf("=") + 1).replace("\"", "").trim();
+              name = name.substring(name.lastIndexOf("\\") + 1);
+              break;
+          }
+      }
+      return name;
+  }
 }
 

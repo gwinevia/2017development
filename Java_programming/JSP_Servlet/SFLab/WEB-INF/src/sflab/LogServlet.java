@@ -18,8 +18,8 @@ public class LogServlet extends HttpServlet{
 	
 	Connection conn = null;
 	String url = "jdbc:postgresql://localhost/sflab";
-	String user = "mmk";
-	String password = "grqt58yj";
+	String user = "ユーザ名";
+	String password = "パスワード";
 
 	public LogServlet() {
 		super();
@@ -33,12 +33,12 @@ public class LogServlet extends HttpServlet{
 		Map<String, String> map = (Map<String, String>)session.getAttribute( "login_user" );
 
 		if ( null == map ) {
-			// トップページへ遷移(リダイレクト).
+			// ログインフォームへ遷移(リダイレクト).
 			response.sendRedirect( "./login" );
 			return;
 		}
 		
-		// ログインフォームへ遷移(フォワード).
+		// 作業ログページへ遷移(フォワード).
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher( "/log.jsp" );
 		dispatcher.forward( request, response );
 	}
@@ -68,8 +68,7 @@ public class LogServlet extends HttpServlet{
 				return;
 			}
 			
-			// ログインフォームへ遷移(フォワード).
-			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher( "/" );
+			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher( "/home.jsp" );
 			dispatcher.forward( request, response );
 			
 			conn.close();
@@ -79,6 +78,7 @@ public class LogServlet extends HttpServlet{
 			
 	}
 	
+	//XSS対策的なもの
 	public boolean hasXssChars(String str) {
 		if (str.matches(".*[<>&\"'].*")){
 			return true;

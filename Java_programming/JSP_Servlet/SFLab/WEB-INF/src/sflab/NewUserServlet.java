@@ -18,8 +18,8 @@ public class NewUserServlet extends HttpServlet {
 	
 	Connection conn = null;
 	String url = "jdbc:postgresql://localhost/sflab";
-	String user = "mmk";
-	String password = "grqt58yj";
+	String user = "ユーザ名";
+	String password = "パスワード";
 
 	public NewUserServlet() {
 		super();
@@ -39,7 +39,7 @@ public class NewUserServlet extends HttpServlet {
 			return;
 		}
 
-		// ログインフォームへ遷移(フォワード).
+		// 新規登録ページへ遷移(フォワード).
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher( "/newuser.jsp" );
 		dispatcher.forward( request, response );
 	}
@@ -50,6 +50,7 @@ public class NewUserServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession( true );
 		
+		// 名前 を取得.
 		String userName = request.getParameter( "name" );
 		if ( null == userName ) {
 			userName = "";
@@ -87,6 +88,7 @@ public class NewUserServlet extends HttpServlet {
 			rs.next();
 			
 			map.put("id",rs.getString("id"));
+			
 			// ログイン情報をセッションに保存.
 			session.setAttribute( "login_user", map );
 			

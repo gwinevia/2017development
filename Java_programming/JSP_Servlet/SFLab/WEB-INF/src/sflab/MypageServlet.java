@@ -19,8 +19,8 @@ public class MypageServlet extends HttpServlet{
 	
 	Connection conn = null;
 	String url = "jdbc:postgresql://localhost/sflab";
-	String user = "mmk";
-	String password = "grqt58yj";
+	String user = "ユーザ名";
+	String password = "パスワード";
 
 	public MypageServlet() {
 		super();
@@ -34,12 +34,12 @@ public class MypageServlet extends HttpServlet{
 		Map<String, String> map = (Map<String, String>)session.getAttribute( "login_user" );
 
 		if ( null == map ) {
-			// トップページへ遷移(リダイレクト).
+			// ログインフォームへ遷移(リダイレクト).
 			response.sendRedirect( "./login" );
 			return;
 		}
 
-		// ログインフォームへ遷移(フォワード).
+		// マイページへ遷移(フォワード).
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher( "/mypage.jsp" );
 		dispatcher.forward( request, response );
 	}
@@ -78,23 +78,20 @@ public class MypageServlet extends HttpServlet{
 			}else if(userTweet != null && !hasXssChars(userTweet)){
 				sql = "INSERT INTO Tweet(id,tweet) values(" + userID + ",'" + userTweet + "')";
 				stmt.executeUpdate(sql);
-				// ログインフォームへ遷移(フォワード).
 				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher( "/mypage.jsp" );
 				dispatcher.forward( request, response );
 				return;
 			}
 			
-			// ログインフォームへ遷移(フォワード).
-			//RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher( "/home.jsp" );
 			response.sendRedirect( "./home" );
-			//dispatcher.forward( request, response );
-			
+
 			conn.close();
 			stmt.close();
 	    
 		}catch(Exception e){}		
 	}
 
+	// XSS対策的なもの
 	public boolean hasXssChars(String str) {
 		if (str.matches(".*[<>&\"'].*")){
 			return true;

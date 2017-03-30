@@ -18,8 +18,8 @@ public class MemberServlet extends HttpServlet{
 	
 	Connection conn = null;
 	String url = "jdbc:postgresql://localhost/sflab";
-	String user = "mmk";
-	String password = "grqt58yj";
+	String user = "ユーザ名";
+	String password = "パスワード";
 
 	public MemberServlet() {
 		super();
@@ -33,14 +33,14 @@ public class MemberServlet extends HttpServlet{
 		Map<String, String> map = (Map<String, String>)session.getAttribute( "login_user" );
 
 		if ( null == map ) {
-			// トップページへ遷移(リダイレクト).
+			// ログインフォームへ遷移(リダイレクト).
 			response.sendRedirect( "./login" );
 			return;
 		}
 		
 		String userName = (String)map.get("name");
 		if(userName.equals("SFLab")){
-			// ログインフォームへ遷移(フォワード).
+			// 管理者ページへ遷移(フォワード).
 			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher( "/member.jsp" );
 			dispatcher.forward( request, response );
 		}else {
@@ -88,7 +88,6 @@ public class MemberServlet extends HttpServlet{
 	    
 		}catch(Exception e){}
 		
-		// ログインフォームへ遷移(フォワード).
 		response.sendRedirect( "./home" );
 	}
 }

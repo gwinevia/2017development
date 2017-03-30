@@ -19,8 +19,8 @@ public class LoginServlet extends HttpServlet {
 	
 	Connection conn = null;
 	String url = "jdbc:postgresql://localhost/sflab";
-	String user = "mmk";
-	String password = "grqt58yj";
+	String user = "ユーザ名";
+	String password = "パスワード";
 
 	public LoginServlet() {
 		super();

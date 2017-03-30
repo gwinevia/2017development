@@ -19,8 +19,8 @@ public class HomeServlet extends HttpServlet{
 		
 		Connection conn = null;
 		String url = "jdbc:postgresql://localhost/sflab";
-		String user = "mmk";
-		String password = "grqt58yj";
+		String user = "ユーザ名";
+		String password = "パスワード";
 
 		public HomeServlet() {
 			super();
@@ -37,7 +37,6 @@ public class HomeServlet extends HttpServlet{
 			dbinfo.put("user", user);
 			session.setAttribute( "db_info", dbinfo );
 
-			// ログインフォームへ遷移(フォワード).
 			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher( "/home.jsp" );
 			dispatcher.forward( request, response );
 		}
